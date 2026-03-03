@@ -3,7 +3,7 @@ This is my implementation of the Fenrir Security frontend internship task. I hav
 🚀 Live Links
 Live Demo: https://fenrir-task-pi.vercel.app/
 
-Video Walkthrough (Loom): https://www.loom.com/share/e78ad4e356b3413ea8346b42dd4ee993
+Video Walkthrough (Loom): https://www.loom.com/share/76edb16864e649edaa5f3ad46e486910
 
 🛠️ How I Built This
 I used React 18 with Vite for a fast development experience. For styling, I chose Tailwind CSS to handle the complex layout and theme switching.
