@@ -89,6 +89,7 @@ function buildLogs(scan) {
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
 export default function ScanDetail({ scans }) {
+    // PROTECTED ROUTES: Because ScanDetail is wrapped in <ProtectedRoute>, we can safely assume the user is authenticated here.
     const { id } = useParams();
     const navigate = useNavigate();
     const { isDark } = useTheme();
@@ -206,17 +207,17 @@ export default function ScanDetail({ scans }) {
     }
 
     const activeStep = getActiveStep(scan?.progress ?? 0);
-    const vulnerabilities = scan?.vulnerabilities ?? { critical: 0, high: 0, medium: 0, low: 0 };
+    const severityStats = scan?.vulnerabilities ?? { critical: 0, high: 0, medium: 0, low: 0 };
     const findings = scan?.findings ?? [];
-    const totalFindings = Object.values(vulnerabilities).reduce((a, b) => a + b, 0);
+    const totalFindings = Object.values(severityStats).reduce((a, b) => a + b, 0);
 
     const META = [
-        { label: "Scan Type", val: scan?.type ?? "—" },
-        { label: "Target", val: scan?.target ?? "—" },
-        { label: "Started At", val: scan?.lastScan ?? "—" },
-        { label: "Initiated By", val: scan?.initiatedBy ?? "—" },
-        { label: "Duration", val: scan?.duration ?? "—" },
-        { label: "Status", val: scan?.status ?? "—" },
+        { label: "Scan Type", value: scan?.type ?? "—" },
+        { label: "Target", value: scan?.target ?? "—" },
+        { label: "Started At", value: scan?.lastScan ?? "—" },
+        { label: "Initiated By", value: scan?.initiatedBy ?? "—" },
+        { label: "Duration", value: scan?.duration ?? "—" },
+        { label: "Status", value: scan?.status ?? "—" },
     ];
 
     return (
@@ -357,13 +358,13 @@ export default function ScanDetail({ scans }) {
                     {/* ── 2. Metadata Row ─────────────────────────────────── */}
                     <div className={`rounded-xl border p-4 ${card} ${bdr}`}>
                         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-                            {META.map((m) => (
-                                <div key={m.label} className="min-w-0">
-                                    <p className={`text-[10px] font-semibold uppercase tracking-wider mb-1 ${muted}`}>{m.label}</p>
+                            {META.map((metaItem) => (
+                                <div key={metaItem.label} className="min-w-0">
+                                    <p className={`text-[10px] font-semibold uppercase tracking-wider mb-1 ${muted}`}>{metaItem.label}</p>
                                     {isLoading ? (
                                         <Skeleton className="h-4 w-3/4 rounded-md" />
                                     ) : (
-                                        <p className={`text-xs font-medium truncate ${txt}`}>{m.val}</p>
+                                        <p className={`text-xs font-medium truncate ${txt}`}>{metaItem.value}</p>
                                     )}
                                 </div>
                             ))}
@@ -471,12 +472,12 @@ export default function ScanDetail({ scans }) {
                         {/* Agent stats */}
                         <div className="flex items-center gap-5">
                             {[
-                                { label: "Sub-Agents", val: 0 },
-                                { label: "Parallel Executions", val: scan?.status === "Completed" ? 2 : 0 },
-                            ].map((m) => (
-                                <div key={m.label} className="flex items-center gap-1.5">
-                                    <span className={`text-xs ${muted}`}>{m.label}:</span>
-                                    <span className={`text-xs font-bold ${txt}`}>{m.val}</span>
+                                { label: "Sub-Agents", value: 0 },
+                                { label: "Parallel Executions", value: scan?.status === "Completed" ? 2 : 0 },
+                            ].map((metric) => (
+                                <div key={metric.label} className="flex items-center gap-1.5">
+                                    <span className={`text-xs ${muted}`}>{metric.label}:</span>
+                                    <span className={`text-xs font-bold ${txt}`}>{metric.value}</span>
                                 </div>
                             ))}
                         </div>
@@ -487,14 +488,14 @@ export default function ScanDetail({ scans }) {
                         {/* Severity counts */}
                         <div className="flex items-center gap-4 flex-wrap">
                             {[
-                                { label: "Critical", val: vulnerabilities.critical, cls: "text-critical" },
-                                { label: "High", val: vulnerabilities.high, cls: "text-high" },
-                                { label: "Medium", val: vulnerabilities.medium, cls: "text-medium" },
-                                { label: "Low", val: vulnerabilities.low, cls: "text-low" },
-                            ].map((s) => (
-                                <div key={s.label} className="flex items-center gap-1.5">
-                                    <span className={`text-xs ${muted}`}>{s.label}:</span>
-                                    <span className={`text-xs font-extrabold ${s.cls}`}>{s.val}</span>
+                                { label: "Critical", value: severityStats.critical, cls: "text-critical" },
+                                { label: "High", value: severityStats.high, cls: "text-high" },
+                                { label: "Medium", value: severityStats.medium, cls: "text-medium" },
+                                { label: "Low", value: severityStats.low, cls: "text-low" },
+                            ].map((severityItem) => (
+                                <div key={severityItem.label} className="flex items-center gap-1.5">
+                                    <span className={`text-xs ${muted}`}>{severityItem.label}:</span>
+                                    <span className={`text-xs font-extrabold ${severityItem.cls}`}>{severityItem.value}</span>
                                 </div>
                             ))}
                         </div>

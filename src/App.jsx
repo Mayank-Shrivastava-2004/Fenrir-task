@@ -8,11 +8,13 @@ import Dashboard from "./pages/Dashboard";
 import ScanDetail from "./pages/ScanDetail";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
-import data from "./data/mockData.json";
+import scanLogs from "./data/mockData.json";
 
 function App() {
-  const [scans, setScans] = useState(data.scans);
+  // STATE LIFTING: We lift the 'scans' state to App.jsx so both Dashboard and ScanDetail can share the same live mock data.
+  const [scans, setScans] = useState(scanLogs.scans);
 
+  // PROTECTED ROUTES: Any route wrapped in <ProtectedRoute> will check authentication status and redirect to /login if unauthorized.
   return (
     <ThemeProvider>
       <BrowserRouter>
