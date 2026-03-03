@@ -1,0 +1,289 @@
+{
+    "scans": [
+        {
+            "id": "SCN-001",
+            "name": "Fenrir API Gateway",
+            "type": "Blackbox",
+            "status": "Completed",
+            "progress": 100,
+            "lastScan": "1d ago",
+            "target": "https://api.fenrir-security.io/v1",
+            "initiatedBy": "admin@fenrir.io",
+            "duration": "1h 42m",
+            "vulnerabilities": {
+                "critical": 2,
+                "high": 5,
+                "medium": 8,
+                "low": 4
+            },
+            "findings": [
+                {
+                    "id": "FND-001",
+                    "title": "SQL Injection in /users endpoint",
+                    "severity": "Critical",
+                    "endpoint": "GET /v1/users?id=",
+                    "timestamp": "2026-03-01T08:14:32Z"
+                },
+                {
+                    "id": "FND-002",
+                    "title": "JWT Secret Exposed in Error Response",
+                    "severity": "Critical",
+                    "endpoint": "POST /v1/auth/token",
+                    "timestamp": "2026-03-01T08:27:05Z"
+                },
+                {
+                    "id": "FND-003",
+                    "title": "Missing Rate Limiting on Auth Endpoints",
+                    "severity": "High",
+                    "endpoint": "POST /v1/auth/login",
+                    "timestamp": "2026-03-01T08:34:50Z"
+                },
+                {
+                    "id": "FND-004",
+                    "title": "CORS Wildcard Origin Misconfiguration",
+                    "severity": "High",
+                    "endpoint": "* /v1/**",
+                    "timestamp": "2026-03-01T08:41:10Z"
+                },
+                {
+                    "id": "FND-005",
+                    "title": "Insecure Direct Object Reference (IDOR)",
+                    "severity": "High",
+                    "endpoint": "GET /v1/reports/{id}",
+                    "timestamp": "2026-03-01T08:55:22Z"
+                }
+            ]
+        },
+        {
+            "id": "SCN-002",
+            "name": "Customer Auth Service",
+            "type": "Greybox",
+            "status": "Completed",
+            "progress": 100,
+            "lastScan": "2d ago",
+            "target": "https://auth.fenrir-security.io",
+            "initiatedBy": "security@fenrir.io",
+            "duration": "58m",
+            "vulnerabilities": {
+                "critical": 1,
+                "high": 3,
+                "medium": 6,
+                "low": 9
+            },
+            "findings": [
+                {
+                    "id": "FND-010",
+                    "title": "Weak Password Policy Enforcement",
+                    "severity": "Critical",
+                    "endpoint": "POST /auth/register",
+                    "timestamp": "2026-03-02T09:10:00Z"
+                },
+                {
+                    "id": "FND-011",
+                    "title": "Session Token Not Invalidated on Logout",
+                    "severity": "High",
+                    "endpoint": "POST /auth/logout",
+                    "timestamp": "2026-03-02T09:22:15Z"
+                }
+            ]
+        },
+        {
+            "id": "SCN-003",
+            "name": "Admin Portal",
+            "type": "Greybox",
+            "status": "Failed",
+            "progress": 38,
+            "lastScan": "3d ago",
+            "target": "https://admin.fenrir-security.io",
+            "initiatedBy": "security@fenrir.io",
+            "duration": "22m",
+            "vulnerabilities": {
+                "critical": 0,
+                "high": 1,
+                "medium": 3,
+                "low": 2
+            },
+            "findings": [
+                {
+                    "id": "FND-020",
+                    "title": "Reflected XSS in Search Parameter",
+                    "severity": "High",
+                    "endpoint": "GET /admin/search?q=",
+                    "timestamp": "2026-03-02T14:08:40Z"
+                }
+            ]
+        },
+        {
+            "id": "SCN-004",
+            "name": "Payment Microservice",
+            "type": "Blackbox",
+            "status": "Scheduled",
+            "progress": 0,
+            "lastScan": "4d ago",
+            "target": "https://pay.fenrir-security.io",
+            "initiatedBy": "ci-pipeline@fenrir.io",
+            "duration": null,
+            "vulnerabilities": {
+                "critical": 0,
+                "high": 0,
+                "medium": 0,
+                "low": 0
+            },
+            "findings": []
+        },
+        {
+            "id": "SCN-005",
+            "name": "Mobile API v2",
+            "type": "Greybox",
+            "status": "Completed",
+            "progress": 100,
+            "lastScan": "4d ago",
+            "target": "https://mobile-api.fenrir-security.io/v2",
+            "initiatedBy": "pentest@fenrir.io",
+            "duration": "2h 15m",
+            "vulnerabilities": {
+                "critical": 3,
+                "high": 7,
+                "medium": 12,
+                "low": 5
+            },
+            "findings": [
+                {
+                    "id": "FND-030",
+                    "title": "Hardcoded API Key in Response Headers",
+                    "severity": "Critical",
+                    "endpoint": "GET /v2/config",
+                    "timestamp": "2026-03-03T09:18:42Z"
+                },
+                {
+                    "id": "FND-031",
+                    "title": "Access Token TTL Too Long (30 days)",
+                    "severity": "High",
+                    "endpoint": "POST /v2/auth/token",
+                    "timestamp": "2026-03-03T09:31:15Z"
+                },
+                {
+                    "id": "FND-032",
+                    "title": "No Certificate Pinning",
+                    "severity": "Critical",
+                    "endpoint": "TLS Handshake",
+                    "timestamp": "2026-03-03T09:45:00Z"
+                }
+            ]
+        },
+        {
+            "id": "SCN-006",
+            "name": "Internal Dashboard",
+            "type": "Blackbox",
+            "status": "Completed",
+            "progress": 100,
+            "lastScan": "5d ago",
+            "target": "https://dashboard.internal.fenrir-security.io",
+            "initiatedBy": "admin@fenrir.io",
+            "duration": "1h 05m",
+            "vulnerabilities": {
+                "critical": 0,
+                "high": 2,
+                "medium": 4,
+                "low": 7
+            },
+            "findings": [
+                {
+                    "id": "FND-040",
+                    "title": "Clickjacking via Missing X-Frame-Options",
+                    "severity": "Medium",
+                    "endpoint": "GET /",
+                    "timestamp": "2026-02-28T11:00:00Z"
+                }
+            ]
+        },
+        {
+            "id": "SCN-007",
+            "name": "File Storage Service",
+            "type": "Greybox",
+            "status": "Scheduled",
+            "progress": 0,
+            "lastScan": "6d ago",
+            "target": "https://storage.fenrir-security.io",
+            "initiatedBy": "ci-pipeline@fenrir.io",
+            "duration": null,
+            "vulnerabilities": {
+                "critical": 0,
+                "high": 0,
+                "medium": 0,
+                "low": 0
+            },
+            "findings": []
+        },
+        {
+            "id": "SCN-008",
+            "name": "Notification Gateway",
+            "type": "Blackbox",
+            "status": "Failed",
+            "progress": 61,
+            "lastScan": "7d ago",
+            "target": "https://notify.fenrir-security.io",
+            "initiatedBy": "admin@fenrir.io",
+            "duration": "38m",
+            "vulnerabilities": {
+                "critical": 1,
+                "high": 2,
+                "medium": 5,
+                "low": 3
+            },
+            "findings": [
+                {
+                    "id": "FND-050",
+                    "title": "SSRF via Webhook URL Parameter",
+                    "severity": "Critical",
+                    "endpoint": "POST /webhooks/register",
+                    "timestamp": "2026-02-27T15:20:00Z"
+                }
+            ]
+        },
+        {
+            "id": "SCN-009",
+            "name": "User Profile Service",
+            "type": "Greybox",
+            "status": "Completed",
+            "progress": 100,
+            "lastScan": "8d ago",
+            "target": "https://profile.fenrir-security.io",
+            "initiatedBy": "security@fenrir.io",
+            "duration": "1h 20m",
+            "vulnerabilities": {
+                "critical": 0,
+                "high": 4,
+                "medium": 9,
+                "low": 6
+            },
+            "findings": [
+                {
+                    "id": "FND-060",
+                    "title": "PII Leakage in Error Messages",
+                    "severity": "High",
+                    "endpoint": "GET /profile/{id}",
+                    "timestamp": "2026-02-26T10:05:00Z"
+                }
+            ]
+        },
+        {
+            "id": "SCN-010",
+            "name": "Reporting Engine",
+            "type": "Blackbox",
+            "status": "Scheduled",
+            "progress": 0,
+            "lastScan": "10d ago",
+            "target": "https://reports.fenrir-security.io",
+            "initiatedBy": "ci-pipeline@fenrir.io",
+            "duration": null,
+            "vulnerabilities": {
+                "critical": 0,
+                "high": 0,
+                "medium": 0,
+                "low": 0
+            },
+            "findings": []
+        }
+    ]
+}

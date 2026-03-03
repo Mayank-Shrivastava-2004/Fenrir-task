@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Google Fonts ─────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ── Base Styles ──────────────────────────────────────────────────── */
+@layer base {
+  * {
+    @apply border-border-dark;
+  }
+
+  body {
+    @apply font-sans antialiased;
+    @apply bg-dark-bg text-gray-100;
+    @apply transition-colors duration-300;
+  }
+
+  /* Light mode overrides */
+  .light body,
+  html:not(.dark) body {
+    @apply bg-light-bg text-gray-900;
+  }
+}
+
+/* ── Scrollbar ────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  @apply bg-border-dark rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary;
+}
